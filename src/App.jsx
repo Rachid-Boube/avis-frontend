@@ -20,6 +20,7 @@ function App() {
         <Route path="/" element={"Home"} />
         <Route path="/inscription" element={<PageInscription />} />
         <Route path="/connexion" element={<PageConnexion />} />
+        <Route path="/verification-email" element={<PageVerificationEmail />} />
       </Routes>
 
       </div>
