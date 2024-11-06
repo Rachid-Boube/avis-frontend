@@ -2,6 +2,8 @@ import { Routes ,Route} from "react-router-dom";
 import FloatingShape from "./components/FloatingShape";
 import PageInscription from "./pages/PageInscription";
 import PageConnexion from "./pages/PageConnexion";
+import PageVerificationEmail from "./pages/PageVerificationEmail";
+
 
 
 function App() {

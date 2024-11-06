@@ -56,7 +56,7 @@ const PageConnexion = () => {
 						type='submit'
 						disabled={isLoading}
 					>
-						{isLoading ? <Loader className='w-6 h-6 animate-spin  mx-auto' /> : "Login"}
+						{isLoading ? <Loader className='w-6 h-6 animate-spin  mx-auto' /> : "Se connecter"}
 					</motion.button>
 
       </form>

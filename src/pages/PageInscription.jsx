@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import {motion} from 'framer-motion'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
-import {Lock, Mail, User} from 'lucide-react'
+import {Lock, Mail, User,Loader} from 'lucide-react'
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
+import { useAuthStore } from '../store/authStore';
 
 
 const PageInscription = () => {
@@ -11,9 +12,18 @@ const PageInscription = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password,setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const {inscription,error,isLoading} = useAuthStore();
 
   const handleInscription = async (e) => {
 		e.preventDefault();
+		try {
+			await inscription(name, email, password);
+			navigate('/verification-email'); // Redirect to login page after successful registration
+        } catch (error) {
+			console.error(error);
+		}
 	};
 
   return (
@@ -51,6 +61,9 @@ const PageInscription = () => {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
+					{error && (
+                        <p className='text-red-500 font-semibold mt-2'>Erreur : {error}</p>
+                    )}
 					<PasswordStrengthMeter password={password} />
 
           <motion.button className='mt-5 w-full py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white 
@@ -59,8 +72,9 @@ const PageInscription = () => {
 						 focus:ring-offset-gray-900 transition duration-200'
 						whileHover={{ scale: 1.02 }}
 						whileTap={{ scale: 0.98 }}
-						type='submit'>
-              S'inscrire
+						type='submit'
+						disabled={isLoading}>
+             {isLoading ? <Loader className=' animate-spin mx-auto' size={24} /> : "S'inscrire"}
           </motion.button>
   
         </form>
